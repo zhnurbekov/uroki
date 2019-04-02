@@ -1,13 +1,13 @@
 import React from 'react';
 
 function Lists(props) {
-  console.log(props)
+  const { className, children, changeModal } = props;
   return (
-    <div className={props.className}>
-      Lists
-      <div>
-        {props.children}
-      </div>
+    <div className={className}>
+      <button onClick={changeModal}>
+        Внутри lists изменить модалку
+      </button>
+      {children}
     </div>
   );
 }

@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Lists(props) {
-  const { className, children, changeModal } = props;
+  const [modalIsOpen, onChangeModal] = useState(false);
+  const [buttonName, changeButtonName] = useState('My Button');
+  const { className, children } = props;
   return (
     <div className={className}>
-      <button onClick={changeModal}>
-        Внутри lists изменить модалку
+      <button onClick={() => {
+        onChangeModal(!modalIsOpen);
+        changeButtonName('Chnged button name')
+      }}>
+        {buttonName}
       </button>
-      {children}
+      {modalIsOpen ? 'Модалка открыта' : 'Модалка закрыта'}
     </div>
   );
 }

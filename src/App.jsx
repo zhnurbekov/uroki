@@ -3,7 +3,8 @@ import Lists from './Lists';
 
 class App extends React.Component {
   state = {
-    modalIsOpen: false
+    modalIsOpen: false,
+    users:[]
   };
 
   componentWillMount() {
@@ -11,6 +12,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(data =>{
+        this.setState({users : data});
+        console.log(this.state)
+
+      });
+
     console.log('componentDidMount')
   }
 
@@ -39,7 +48,7 @@ class App extends React.Component {
     return (
       <div>
         {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'} <br />
-        <Lists className="test" changeModal={onChangeModal} />
+        <Lists className="test" changeModal={onChangeModal} userList = {this.state.users}/>
       </div>
     );
   }

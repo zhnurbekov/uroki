@@ -6,16 +6,40 @@ class App extends React.Component {
     modalIsOpen: false
   };
 
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  componentWillUpdate() {
+    console.log('componentWillUpdate')
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+
+  componentWillUnmount(prevProps, prevState) {
+    console.log('componentWillUnmount')
+  }
+
+  shouldComponentUpdate(prevProps) {
+    console.log('shouldComponentUpdate')
+    return true
+  }
+
   render() {
     const { modalIsOpen } = this.state;
     const onChangeModal = () => this.setState({ modalIsOpen: !modalIsOpen });
+    console.log('render');
 
     return (
       <div>
-        <Lists className="test" changeModal={onChangeModal}>
-          {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'}
-          <br />
-        </Lists>
+        {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'} <br />
+        <Lists className="test" changeModal={onChangeModal} />
       </div>
     );
   }

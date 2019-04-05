@@ -1,10 +1,12 @@
 import React from 'react';
 import Lists from './Lists';
+import Input from './ui/Input';
 
 class App extends React.Component {
   state = {
     modalIsOpen: false,
-    users: []
+    users: [],
+    inputValue: ''
   };
 
   componentWillMount() {
@@ -43,8 +45,18 @@ class App extends React.Component {
 
     return (
       <div>
-        {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'} <br/>
-        <Lists className="test" changeModal={onChangeModal} userList={this.state.users}/>
+        <Input
+          name={true}
+          value={this.state.inputValue}
+          onChange={inputValue => this.setState({ inputValue })}
+        />
+        {this.state.inputValue === '115' && <div>Значение равно 115</div>}
+        {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'} <br />
+        <Lists
+          className="test"
+          changeModal={onChangeModal}
+          userList={this.state.users}
+        />
       </div>
     );
   }

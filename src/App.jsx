@@ -41,7 +41,31 @@ class App extends React.Component {
   render() {
     const { modalIsOpen } = this.state;
     const onChangeModal = () => this.setState({ modalIsOpen: !modalIsOpen });
-    console.log('render');
+
+    let schoolId = true;
+    let personalId = false;
+    let object = {
+      '111': 1111,
+      '222': 2222,
+      '333': 3333,
+      '444': 4444,
+      '555': 5555,
+    };
+    let array = [
+      1111,
+      2222,
+      3333,
+      4444,
+      5555
+    ];
+    let object2 = {...object, ['222']: 654564};
+    // let array2 = [...array];
+    // let param = schoolId && personalId;
+    // let param = schoolId || personalId;
+    // let param = schoolId ? personalId : 'dsfsdfsd';
+    // for (const [key, value] of Object.entries(object)) {
+    //   console.log(key, value)
+    // }
 
     return (
       <div>

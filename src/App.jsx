@@ -12,7 +12,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/todos')
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(data =>{
         this.setState({users : data});

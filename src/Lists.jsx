@@ -22,20 +22,20 @@ const CustomTableCell = withStyles(theme => ({
 function Lists(props) {
 
   const [buttonName, changeButtonName] = useState('My Button');
-  const { className, changeModal, userList } = props;
+  const { className, changeModal,removeUser, userList } = props;
   console.log(userList);
   return (
     <div className={className}>
 
       <button style={{ marginLeft: '5%', marginTop: '20px', marginBottom: '20px', height: '30px' }}
               onClick={() => {
-                changeModal();
+                removeUser();
                 changeButtonName('Changed button name');
               }}><i className="fas fa-user-plus"> </i> Добавить пользователя
       </button>
 
       <div align="center">
-        <Paper style={{ width: '90%' }}>
+        <Paper style={{ width: '90%' , marginBottom:'20px'}}>
           <Table>
             <TableHead>
               <TableRow>
@@ -55,7 +55,8 @@ function Lists(props) {
                   <CustomTableCell align="left">{user.address.city}</CustomTableCell>
                   <CustomTableCell align="left">{user.address.street}</CustomTableCell>
                   <CustomTableCell align="left">{user.phone}</CustomTableCell>
-                  <CustomTableCell align="center"><i class="fas fa-trash-alt"></i></CustomTableCell>
+                  <CustomTableCell align="center" >
+                    <i class="fas fa-trash-alt" onClick={() => {removeUser(user)}}></i></CustomTableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -43,12 +43,16 @@ class App extends React.Component {
   render() {
     const { modalIsOpen } = this.state;
     const onChangeModal = () => this.setState({ modalIsOpen: !modalIsOpen });
+    const removeUser = (removeUser) =>  this.setState({users: this.state.users.filter(function(user) {
+        return user.id !== removeUser.id
+      })});
     console.log('render');
 
     return (
       <div>
         {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'} <br />
-        <Lists className="test" changeModal={onChangeModal} userList = {this.state.users}/>
+        <Lists className="test" changeModal={onChangeModal} removeUser = {removeUser}
+               userList = {this.state.users}/>
       </div>
     );
   }

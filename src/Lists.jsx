@@ -7,16 +7,28 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white
-  },
-  body: {
-    fontSize: 14
+/*function withStyles(themeCallback) {
+  let styles = themeCallback();
+  return function(Component) {
+    return <Component styles={styles}/>
   }
-}))(TableCell);
+}*/
+
+let themeFunc = function(theme){
+  return {
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white
+    },
+    body: {
+      fontSize: 14
+    }
+  }
+};
+
+const compFunc = withStyles(themeFunc);
+const CustomTableCell = compFunc(TableCell);
+
 
 
 function Lists(props) {
@@ -29,7 +41,6 @@ function Lists(props) {
 
       <button style={{ marginLeft: '5%', marginTop: '20px', marginBottom: '20px', height: '30px' }}
               onClick={() => {
-                removeUser();
                 changeButtonName('Changed button name');
               }}><i className="fas fa-user-plus"> </i> Добавить пользователя
       </button>
@@ -56,7 +67,7 @@ function Lists(props) {
                   <CustomTableCell align="left">{user.address.street}</CustomTableCell>
                   <CustomTableCell align="left">{user.phone}</CustomTableCell>
                   <CustomTableCell align="center" >
-                    <i class="fas fa-trash-alt" onClick={() => {removeUser(user)}}></i></CustomTableCell>
+                    <i className="fas fa-trash-alt" onClick={() => {removeUser(user)}}/></CustomTableCell>
                 </TableRow>
               ))}
             </TableBody>

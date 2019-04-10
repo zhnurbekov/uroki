@@ -41,11 +41,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { modalIsOpen } = this.state;
+    const { modalIsOpen, users } = this.state;
     const onChangeModal = () => this.setState({ modalIsOpen: !modalIsOpen });
-    const removeUser = (removeUser) =>  this.setState({users: this.state.users.filter(function(user) {
-        return user.id !== removeUser.id
-      })});
+    const removeUser = userObj =>  this.setState({users: users.filter(user => user.id !== userObj.id)});
     console.log('render');
 
     return (

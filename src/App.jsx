@@ -8,7 +8,7 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    console.log('componentWillMount')
+    // console.log('componentWillMount')
   }
 
   componentDidMount() {
@@ -16,27 +16,27 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data =>{
         this.setState({users : data});
-        console.log(this.state)
+        // console.log(this.state)
 
       });
 
-    console.log('componentDidMount')
+    // console.log('componentDidMount')
   }
 
   componentWillUpdate() {
-    console.log('componentWillUpdate')
+    // console.log('componentWillUpdate')
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate')
+    // console.log('componentDidUpdate')
   }
 
   componentWillUnmount(prevProps, prevState) {
-    console.log('componentWillUnmount')
+    // console.log('componentWillUnmount')
   }
 
   shouldComponentUpdate(prevProps) {
-    console.log('shouldComponentUpdate')
+    // console.log('shouldComponentUpdate')
     return true
   }
 
@@ -44,7 +44,7 @@ class App extends React.Component {
     const { modalIsOpen, users } = this.state;
     const onChangeModal = () => this.setState({ modalIsOpen: !modalIsOpen });
     const removeUser = userObj =>  this.setState({users: users.filter(user => user.id !== userObj.id)});
-    console.log('render');
+    // console.log('render');
 
     return (
       <div>

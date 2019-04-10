@@ -35,7 +35,7 @@ function Lists(props) {
 
   const [buttonName, changeButtonName] = useState('My Button');
   const { className, changeModal,removeUser, userList } = props;
-  console.log(userList);
+  // console.log(userList);
   return (
     <div className={className}>
 

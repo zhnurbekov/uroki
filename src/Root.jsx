@@ -6,7 +6,7 @@ export default () => {
   const [showApp, setShowApp] = useState(true);
   return (
     <>
-      <Page/>
+      <Page modal={{name:'Жайsssык', surname: 'Нурбекsssов', middlename: 'Жунсалиевич'}}/>
       <button onClick={() => setShowApp(!showApp)}>showApp</button>
       {showApp ? <App/> : null}
       </>

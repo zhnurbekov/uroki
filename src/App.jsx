@@ -1,10 +1,13 @@
 import React from 'react';
 import Lists from './Lists';
+import swal from 'sweetalert';
+
+
 
 class App extends React.Component {
   state = {
     modalIsOpen: false,
-    users:[]
+    users: []
   };
 
   componentWillMount() {
@@ -12,10 +15,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(data =>{
-        this.setState({users : data});
+      .then(data => {
+        this.setState({ users: data });
         // console.log(this.state)
 
       });
@@ -37,20 +42,20 @@ class App extends React.Component {
 
   shouldComponentUpdate(prevProps) {
     // console.log('shouldComponentUpdate')
-    return true
+    return true;
   }
 
   render() {
-    const { modalIsOpen, users } = this.state;
-    const onChangeModal = () => this.setState({ modalIsOpen: !modalIsOpen });
-    const removeUser = userObj =>  this.setState({users: users.filter(user => user.id !== userObj.id)});
-    // console.log('render');
+    const { users } = this.state;
+    const removeUser = userObj => {
+      this.setState({ users: users.filter(user => user.id !== userObj.id) });
+      swal('Удалено', { icon: 'success' });
+    };
+
 
     return (
       <div>
-        {modalIsOpen ? 'модалка открыта' : 'модалка закрыта'} <br />
-        <Lists className="test" changeModal={onChangeModal} removeUser = {removeUser}
-               userList = {this.state.users}/>
+        <Lists removeUser={removeUser} userList={users}/>
       </div>
     );
   }

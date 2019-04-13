@@ -5,16 +5,18 @@ function withModal(Component) {
   return class WithModal extends React.Component {
     state = {
       open: false,
-      data: {},
+      data: this.props.modal
     };
+
+
 
     render() {
       return (
         <Component modal={{
           open: this.state.open,
           data: this.state.data,
-          onOpen: data => this.setState({ open: true, data: data }),
-          onClose: () => this.setState({ open: false, data: {} }),
+          onOpen: () => this.setState({ open: true }),
+          onClose: () => this.setState({ open: false }),
         }}/>
       );
     }

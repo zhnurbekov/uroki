@@ -6,15 +6,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import swal from 'sweetalert';
+import Button from '@material-ui/core/es/Button/Button';
+import UserForm from './UserForm';
 
-/*function withStyles(themeCallback) {
-  let styles = themeCallback();
-  return function(Component) {
-    return <Component styles={styles}/>
-  }
-}*/
 
-let themeFunc = function(theme){
+let themeFunc = function(theme) {
   return {
     head: {
       backgroundColor: theme.palette.common.black,
@@ -23,30 +20,28 @@ let themeFunc = function(theme){
     body: {
       fontSize: 14
     }
-  }
+  };
 };
 
 const compFunc = withStyles(themeFunc);
 const CustomTableCell = compFunc(TableCell);
 
 
+function Lists({removeUser, userList}) {
 
-function Lists(props) {
-
-  const [buttonName, changeButtonName] = useState('My Button');
-  const { className, changeModal,removeUser, userList } = props;
-  // console.log(userList);
   return (
-    <div className={className}>
+    <div>
 
-      <button style={{ marginLeft: '5%', marginTop: '20px', marginBottom: '20px', height: '30px' }}
-              onClick={() => {
-                changeButtonName('Changed button name');
-              }}><i className="fas fa-user-plus"> </i> Добавить пользователя
-      </button>
+
+      <div style={{marginLeft: '5%'}}>
+        <button style={{  marginTop: '20px', marginBottom: '20px', height: '30px' }}>
+          <i className="fas fa-user-plus"> </i> Добавить пользователя
+        </button>
+        <UserForm user ={{name :"Zhaiyk"}} />
+      </div>
 
       <div align="center">
-        <Paper style={{ width: '90%' , marginBottom:'20px'}}>
+        <Paper style={{ width: '90%', marginBottom: '20px' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -66,13 +61,22 @@ function Lists(props) {
                   <CustomTableCell align="left">{user.address.city}</CustomTableCell>
                   <CustomTableCell align="left">{user.address.street}</CustomTableCell>
                   <CustomTableCell align="left">{user.phone}</CustomTableCell>
-                  <CustomTableCell align="center" >
-                    <i className="fas fa-trash-alt" onClick={() => {removeUser(user)}}/></CustomTableCell>
+                  <CustomTableCell align="center">
+                    <Button><i className="fas fa-trash-alt" onClick={() => {
+                      swal({
+                        icon: 'warning',
+                        text: 'Вы действительно хотите удалить запись?',
+                        dangerMode: true,
+                        buttons: true
+                      }).then((confirm) => confirm && removeUser(user));
+                    }}/></Button>
+                  </CustomTableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </Paper>
+
       </div>
     </div>
   );

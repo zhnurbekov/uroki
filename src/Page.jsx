@@ -4,7 +4,7 @@ import { Modal } from '@material-ui/core'
 
 function Page({ modal }) {
   return <div>Page
-    <button onClick={() => modal.onOpen({name:'Жайык', surname: 'Нурбеков', middlename: 'Жунсалиевич'})}>onOpen</button>
+    <button onClick={() => modal.onOpen()}>onOpen</button>
     <Modal open={modal.open} onClose={modal.onClose}>
       <div style={{backgroundColor: 'white'}}>
         <h5>{modal.data.name}</h5>

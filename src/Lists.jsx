@@ -27,19 +27,28 @@ const compFunc = withStyles(themeFunc);
 const CustomTableCell = compFunc(TableCell);
 
 
-function Lists({removeUser, userList}) {
+function Lists({ removeUser, userList, addUser, editUser }) {
+
+  const [editUserProfilModal, editUserProfil] = useState(false);
+  const [userObj, userObjChange] = useState({});
 
   return (
     <div>
-
-
-      <div style={{marginLeft: '5%'}}>
-        <button style={{  marginTop: '20px', marginBottom: '20px', height: '30px' }}>
+      <div style={{ marginLeft: '5%' }}>
+        <button style={{ marginTop: '20px', marginBottom: '20px', height: '30px' }}
+                onClick={() => {
+                  userObjChange({});
+                  editUserProfil(!editUserProfilModal);
+                }}>
           <i className="fas fa-user-plus"> </i> Добавить пользователя
         </button>
-        <UserForm user ={{name :"Zhaiyk"}} />
-      </div>
+        {editUserProfilModal ?
+          <UserForm user={userObj}
+                    addUser={addUser}
+                    editUser={editUser}
+                    editUserProfil={editUserProfil}/> : null}
 
+      </div>
       <div align="center">
         <Paper style={{ width: '90%', marginBottom: '20px' }}>
           <Table>
@@ -54,22 +63,30 @@ function Lists({removeUser, userList}) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {userList.map(user => (
-                <TableRow key={user.id}>
+              {userList.map((user, index) => (
+                <TableRow key={index}>
                   <CustomTableCell component="th" scope="row"> {user.name}</CustomTableCell>
                   <CustomTableCell align="left">{user.email}</CustomTableCell>
                   <CustomTableCell align="left">{user.address.city}</CustomTableCell>
                   <CustomTableCell align="left">{user.address.street}</CustomTableCell>
                   <CustomTableCell align="left">{user.phone}</CustomTableCell>
                   <CustomTableCell align="center">
-                    <Button><i className="fas fa-trash-alt" onClick={() => {
+                    <Button onClick={() => {
                       swal({
                         icon: 'warning',
                         text: 'Вы действительно хотите удалить запись?',
                         dangerMode: true,
                         buttons: true
                       }).then((confirm) => confirm && removeUser(user));
-                    }}/></Button>
+                    }}>
+                      <i className="fas fa-trash-alt"/>
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        editUserProfilModal ? userObjChange({}) : userObjChange(user);
+                        editUserProfil(!editUserProfilModal);
+                      }}
+                    ><i className="fas fa-pen"/></Button>
                   </CustomTableCell>
                 </TableRow>
               ))}

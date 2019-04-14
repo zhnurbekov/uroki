@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import App from './App';
 import Page from './Page';
+import './style/style..scss'
 
 export default () => {
   const [showApp, setShowApp] = useState(true);

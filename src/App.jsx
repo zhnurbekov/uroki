@@ -3,7 +3,6 @@ import Lists from './Lists';
 import swal from 'sweetalert';
 
 
-
 class App extends React.Component {
   state = {
     modalIsOpen: false,
@@ -47,15 +46,21 @@ class App extends React.Component {
 
   render() {
     const { users } = this.state;
-    const removeUser = userObj => {
-      this.setState({ users: users.filter(user => user.id !== userObj.id) });
-      swal('Удалено', { icon: 'success' });
+    const addUser = user => this.setState({ users: [...users, user] });
+    const editUser = user => {
+        this.setState({
+        users: users.map(item=> user.name === item.name ? user : item)
+    });
+        swal('Данные сохранены успешно', { icon: 'success' });
     };
-
+    const removeUser = userObj => {
+        this.setState({ users: users.filter(user => user.id !== userObj.id) });
+        swal('Удалено', { icon: 'success' });
+    };
 
     return (
       <div>
-        <Lists removeUser={removeUser} userList={users}/>
+        <Lists removeUser={removeUser} userList={users} addUser={addUser} editUser={editUser}/>
       </div>
     );
   }

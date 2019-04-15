@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,6 +31,21 @@ function Lists({ removeUser, userList, addUser, editUser }) {
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [userObj, setUserObj] = useState({});
+
+  useEffect(() => {
+    console.log('useEffect - componentDidUpdate')
+    return () => {
+      console.log('useEffect - componentWillUnmount')
+    }
+  }, [editModalOpen]);
+
+  useEffect(() => {
+    console.log('useEffect2 - componentDidUpdate')
+    return () => {
+      console.log('useEffect2 - componentWillUnmount')
+    }
+  }, [userObj]);
+
 
   return (
     <div>

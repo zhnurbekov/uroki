@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
+import MaterialTableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
@@ -24,29 +24,30 @@ let themeFunc = function(theme) {
 };
 
 const compFunc = withStyles(themeFunc);
-const CustomTableCell = compFunc(TableCell);
+const Cell = compFunc(MaterialTableCell);
 
 
 function Lists({ removeUser, userList, addUser, editUser }) {
 
-  const [editUserProfilModal, editUserProfil] = useState(false);
-  const [userObj, userObjChange] = useState({});
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [userObj, setUserObj] = useState({});
 
   return (
     <div>
       <div style={{ marginLeft: '5%' }}>
         <button style={{ marginTop: '20px', marginBottom: '20px', height: '30px' }}
                 onClick={() => {
-                  userObjChange({});
-                  editUserProfil(!editUserProfilModal);
+                  setUserObj({});
+                  setEditModalOpen(true);
                 }}>
           <i className="fas fa-user-plus"> </i> Добавить пользователя
         </button>
-        {editUserProfilModal ?
+        {editModalOpen && (
           <UserForm user={userObj}
                     addUser={addUser}
                     editUser={editUser}
-                    editUserProfil={editUserProfil}/> : null}
+                    editUserProfil={setEditModalOpen}/>
+        )}
 
       </div>
       <div align="center">
@@ -54,23 +55,23 @@ function Lists({ removeUser, userList, addUser, editUser }) {
           <Table>
             <TableHead>
               <TableRow>
-                <CustomTableCell align="left">Имя</CustomTableCell>
-                <CustomTableCell align="left">Почта</CustomTableCell>
-                <CustomTableCell align="left">Город</CustomTableCell>
-                <CustomTableCell align="left">Улица</CustomTableCell>
-                <CustomTableCell align="left">Номер тел</CustomTableCell>
-                <CustomTableCell align="center">Действия</CustomTableCell>
+                <Cell align="left">Имя</Cell>
+                <Cell align="left">Почта</Cell>
+                <Cell align="left">Город</Cell>
+                <Cell align="left">Улица</Cell>
+                <Cell align="left">Номер тел</Cell>
+                <Cell align="center">Действия</Cell>
               </TableRow>
             </TableHead>
             <TableBody>
               {userList.map((user, index) => (
                 <TableRow key={index}>
-                  <CustomTableCell component="th" scope="row"> {user.name}</CustomTableCell>
-                  <CustomTableCell align="left">{user.email}</CustomTableCell>
-                  <CustomTableCell align="left">{user.address.city}</CustomTableCell>
-                  <CustomTableCell align="left">{user.address.street}</CustomTableCell>
-                  <CustomTableCell align="left">{user.phone}</CustomTableCell>
-                  <CustomTableCell align="center">
+                  <Cell component="th" scope="row"> {user.name}</Cell>
+                  <Cell align="left">{user.email}</Cell>
+                  <Cell align="left">{user.address.city}</Cell>
+                  <Cell align="left">{user.address.street}</Cell>
+                  <Cell align="left">{user.phone}</Cell>
+                  <Cell align="center">
                     <Button onClick={() => {
                       swal({
                         icon: 'warning',
@@ -83,11 +84,12 @@ function Lists({ removeUser, userList, addUser, editUser }) {
                     </Button>
                     <Button
                       onClick={() => {
-                        editUserProfilModal ? userObjChange({}) : userObjChange(user);
-                        editUserProfil(!editUserProfilModal);
+                        console.log(user)
+                        setUserObj(user);
+                        setEditModalOpen(true);
                       }}
                     ><i className="fas fa-pen"/></Button>
-                  </CustomTableCell>
+                  </Cell>
                 </TableRow>
               ))}
             </TableBody>

@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 
 
 const schema = yup.object().shape({
-  name: yup.string().required(),
+  name: yup.number().required(),
   email: yup.string().required(),
   city: yup.string().required(),
   street: yup.string().required(),
@@ -17,17 +17,15 @@ const schema = yup.object().shape({
 const userForm = ({ user, addUser, editUser, editUserProfil }) => (
 
   <Formik
-
+    enableReinitialize
     initialValues={{
         name: user.name || '',
         email: user.email || '',
         city: user.address ? user.address.city : '',
         street: user.address ? user.address.street : '',
         phone: user.phone || ''
-      }}
-
+    }}
     validationSchema={schema}
-
     onSubmit={values => {
       swal({
         icon: 'warning',
@@ -51,7 +49,17 @@ const userForm = ({ user, addUser, editUser, editUserProfil }) => (
           name="name"
           placeholder="ФИО"
           value={values.name}
-          onChange={handleChange}/>
+          onChange={handleChange}
+          render={({ form, field}) => {
+            return (
+              <>
+                <input name={field.name} value={field.value} onChange={field.onChange}/>
+                <br/>
+                {form.errors.name && <span style={{color: 'red'}}>{form.errors.name}</span>}
+              </>
+            )
+          }}
+        />
         <Field
           className="user-profile"
           type="email"
